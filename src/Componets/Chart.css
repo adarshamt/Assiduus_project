@@ -1,0 +1,19 @@
+Chart.css
+
+.line-chart-container {
+    position: relative;
+  }
+  
+  .line-chart-container .domain {
+    display: none; 
+  }
+  
+
+.line-chart-container {
+    position: relative;
+  }
+  
+  
+  .line-chart-container .y-axis .tick text {
+    display: none; /* Hide Y-axis values (tick labels) */
+  } 

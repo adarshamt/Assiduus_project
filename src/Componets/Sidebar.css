@@ -2,14 +2,17 @@
     padding: 20px;
 }
 .sidbar_list_container{
-    padding-top: 40px;
+    /* padding:20px; */
     display: flex;
     flex-direction: column;
     row-gap: 5px;
     
     
 }
+.sidbar_list_container li{
+    padding-left: 30px;
+}
 .sidbar_list_container li:hover{
-    background-color: #47b747!important;
+    background-color: #3fb052!important;
 
 }
