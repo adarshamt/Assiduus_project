@@ -44,11 +44,16 @@ const Chart = () => {
   
       // Define scales for X and Y axes
       const xScale = d3.scaleTime()
-        .domain(d3.extent(data, d => d.date))
+        // .domain(d3.extent(data, d => d.date))
+        .domain([9,18])
         .range([margin.left, width - margin.right]);
+        // .range([height - margin.bottom, margin.top]);
+
   
       const yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.value)]) // Y-axis domain based on data
+        // .domain([0, d3.max(data, d => d.value)]) // Y-axis domain based on data
+        .domain([10,50])
+
         .range([height - margin.bottom, margin.top]);
   
       // Create the X-axis
@@ -58,22 +63,23 @@ const Chart = () => {
         .call(xAxis);
   
       // Create the Y-axis
-      const yAxis = d3.axisLeft(yScale);
-      svg.append('g')
-        .attr('transform', `translate(${margin.left}, 0)`)
-        .call(yAxis);
+      // const yAxis = d3.axisLeft(yScale);
+      // svg.append('g')
+      //   .attr('transform', `translate(${margin.left}, 0)`)
+      //   .call(yAxis);
   
       // Create the line generator
       const line = d3.line()
         .x(d => xScale(d.date))
-        .y(d => yScale(d.value));
+        .y(d => yScale(d.value))
+        .curve(d3.curveCardinal); 
   
       // Append the line to the SVG
       svg.append('path')
         .datum(data)
         .attr('fill', 'none')
         .attr('stroke', 'green')
-        .attr('stroke-width', 2)
+        .attr('stroke-width', 3)
         .attr('d', line);
 
         svg.append("g")

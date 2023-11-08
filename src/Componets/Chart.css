@@ -2,10 +2,12 @@ Chart.css
 
 .line-chart-container {
     position: relative;
+    overflow: hidden;
   }
   
   .line-chart-container .domain {
     display: none; 
+    
   }
   
 
