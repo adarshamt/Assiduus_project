@@ -21,7 +21,7 @@ import AccountTable from "./Componets/AccountTable.jsx";
 
 
 function App() {
-  const [month, setMonth] = React.useState("");
+  const [month, setMonth] = React.useState("January");
   const [category, setCategory] = React.useState("");
 
   const handleChangeMonth = (event) => {
@@ -31,6 +31,9 @@ function App() {
     setCategory(event.target.value);
   };
 
+
+
+  // console.log(month);
   const style = {
     position: "absolute",
     top: "50%",
@@ -62,6 +65,12 @@ function App() {
     { name: 'F', value: 15 },
    
   ];
+
+  // const Charthandler = (id) =>{
+  //   const inputRef = React.useRef()
+  //   const month = inputRef.
+
+  // }
  
 
   return (
@@ -79,11 +88,11 @@ function App() {
             <div className="compnent_">
               <div className="compnent_nav">
                 <span>Checking account</span>
-                <Box sx={{ width: "18rem" }}>
-                  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <Box sx={{ width: "18rem" ,}}>
+                  <FormControl sx={{ m: 1, minWidth: 120 ,  }} size="small">
                     <InputLabel
                       id="demo-select-small-label"
-                      sx={{ backgroundColor: "#FFFF" }}
+                      sx={{ backgroundColor: "#FFFF", }}
                     >
                       Manage
                     </InputLabel>
@@ -93,6 +102,7 @@ function App() {
                       value={category}
                       label="Age"
                       onChange={handleCategory}
+                      
                     >
                       <MenuItem value="">
                         <em>Manage</em>
@@ -115,11 +125,12 @@ function App() {
                       value={month}
                       label="Age"
                       onChange={handleChangeMonth}
-                    >
+                      >
                       {/* <MenuItem value=""> */}
                       {/* <em>None</em> */}
                       {/* </MenuItem> */}
-                      <MenuItem value={"January"}>January</MenuItem>
+                     
+                      <MenuItem   value={"January"}>January</MenuItem>
                       <MenuItem value={"February"}>February</MenuItem>
                       <MenuItem value={"March"}>March</MenuItem>
                       <MenuItem value={"April"}>April</MenuItem>
@@ -136,7 +147,7 @@ function App() {
                 </Box>
               </div>
               <div className="componetd_content">
-                <Chart />
+                <Chart  value={month}/>
               </div>
             </div>
             <div className="compnent_">
@@ -147,14 +158,24 @@ function App() {
                   id="invoice_button"
                   className="invoice_button"
                   sx={{
-                    color: "green",
+                    color: "#5dbb66",
                     backgroundColor: "#e8eefd",
                     boxShadow: "none",
-                    width: "11rem",
-                    fontSize: "13px",
+                    width: "9rem",
+                    height:'2rem',
+                    fontSize: "12px",
+                    fontWeight:'700',
+                    fontFamily:'sans-serif',
+                    textTransform: 'none', 
+                  
+
+
                     '&:hover': {
                       backgroundColor: "#e8eefd", 
-                      color:'green'
+                      color:'green',
+                      fontFamily:'sans-serif',
+                      boxShadow:'none'
+                      
                       
                     },
                   
