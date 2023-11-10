@@ -56,15 +56,7 @@ function App() {
     setOpen(false);
   };
 
-  const data = [
-    { name: 'A', value: 10 },
-    { name: 'B', value: 25 },
-    { name: 'C', value: 15 },
-    { name: 'D', value: 30 },
-    { name: 'E', value: 20 },
-    { name: 'F', value: 15 },
-   
-  ];
+ 
 
   // const Charthandler = (id) =>{
   //   const inputRef = React.useRef()
@@ -202,6 +194,7 @@ function App() {
                       justifyContent: "center",
                       flexDirection: "column",
                       rowGap: "20px",
+                      backgroundColor:'#F6F7F9'
                     }}
                   >
                     <h2 id="parent-modal-title">Upload invoice </h2>
@@ -211,7 +204,7 @@ function App() {
                 </Modal>
               </div>
 
-              <BarChart data={data} />
+              <BarChart  />
             </div>
           </div>
           <div className="dash_content_bottom">
@@ -223,7 +216,7 @@ function App() {
                 <div style={{width:'10px',height:'10px',borderRadius:'2px',backgroundColor:'#34eb37'}}></div><span>Out</span>
                 </div>
               </div>
-              <BarChart data={data} />
+              <BarChart  />
 
             </div>
             <div className="compnent_">
