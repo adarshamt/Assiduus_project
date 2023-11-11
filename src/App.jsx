@@ -15,8 +15,10 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
 import BarChart from "./Componets/InvoiceChart.jsx";
-import CashBarChart from "./Componets/CashFlowChart.jsx";
+// import CashBarChart from "./Componets/CashFlowChart.jsx";
 import AccountTable from "./Componets/AccountTable.jsx";
+import StackedBarChart from "./Componets/CashFlowChart.jsx";
+
 
 
 
@@ -30,6 +32,22 @@ function App() {
   const handleCategory = (event) => {
     setCategory(event.target.value);
   };
+
+  // const stackdata =
+  //  [
+  //   { date: "2023-01-01", income: 1000, outcome: 500 },
+  //   { date: "2023-01-02", income: 1200, outcome: 600 },
+  //   // Add more data points as needed
+  // ];
+  const stackdata = [
+    { date: "August", income: 1000, outcome: 500 },
+    { date: "September", income: 1200, outcome: 600 },
+    { date: "October", income: 800, outcome: 400 },
+    { date: "November", income: 1500, outcome: 700 },
+    { date: "December", income: 900, outcome: 300 },
+    { date: "January", income: 1}
+  ]
+  
 
 
 
@@ -216,7 +234,14 @@ function App() {
                 <div style={{width:'10px',height:'10px',borderRadius:'2px',backgroundColor:'#34eb37'}}></div><span>Out</span>
                 </div>
               </div>
-              <BarChart  />
+              {/* <BarChart  /> */}
+              <div className="component_left_bottom">
+              {/* <BarChart/> */}
+              {/* <StackedBarChar data={stackdata} /> */}
+              <StackedBarChart data={stackdata} />
+              
+              </div>
+
 
             </div>
             <div className="compnent_">

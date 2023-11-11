@@ -9,7 +9,7 @@ const BarChart = () => {
     const svg = d3.select(svgRef.current);
     const width = 500;
     const height = 280;
-    const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+    const margin = { top: 20, right: 30, bottom: 50, left: 60 };
 
     const data = chartData[0].data;
 
