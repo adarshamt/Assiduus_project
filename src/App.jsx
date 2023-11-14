@@ -18,6 +18,7 @@ import BarChart from "./Componets/InvoiceChart.jsx";
 // import CashBarChart from "./Componets/CashFlowChart.jsx";
 import AccountTable from "./Componets/AccountTable.jsx";
 import StackedBarChart from "./Componets/CashFlowChart.jsx";
+import StackedChart from "./Componets/CashFlowChart.jsx";
 
 
 
@@ -238,7 +239,7 @@ function App() {
               <div className="component_left_bottom">
               {/* <BarChart/> */}
               {/* <StackedBarChar data={stackdata} /> */}
-              <StackedBarChart data={stackdata} />
+              <StackedChart/>
               
               </div>
 

@@ -31,7 +31,7 @@ const BarChart = () => {
       .nice()
       .range([height - margin.bottom, margin.top]);
 
-    const barWidth = 0.2 * xScale.bandwidth();
+    const barWidth = 0.15 * xScale.bandwidth();
 
     svg
       .selectAll('rect')

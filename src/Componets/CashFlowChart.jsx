@@ -1,145 +1,92 @@
-// import React, { useEffect, useRef } from "react";
-// import { select, scaleBand, axisBottom, stack, max, scaleLinear, axisLeft, stackOrderAscending, timeParse, timeFormat } from "d3";
-
-// function StackedBarChart({ data }) {
-//   const svgRef = useRef();
-//   const yAxisRef = useRef();
-//   const wrapperRef = useRef();
-
-//   useEffect(() => {
-//     const svg = select(svgRef.current);
-//     const yAxisSvg = select(yAxisRef.current);
-//     const { width, height } = wrapperRef.current.getBoundingClientRect();
-
-//     const stackGenerator = stack().keys(["income", "outcome"]).order(stackOrderAscending);
-//     const layers = stackGenerator(data);
-
-//     const extent = [
-//       0,
-//       max(layers, (layer) => max(layer, (sequence) => sequence[1] + 0.2))
-//     ];
-
-//     const parseMonth = timeParse("%B");
-//     const formatMonth = timeFormat("%B");
-
-//     const xScale = scaleBand()
-//       .domain(data.map((d) => parseMonth(d.date)))
-//       .range([0, data.length * 50])
-//       .padding(0.2);
-
-//     const yScale = scaleLinear()
-//       .domain(extent)
-//       .range([height, 0]);
-
-//     svg
-//       .attr("width", data.length * 50)
-//       .attr("height", height)
-//       .selectAll(".layer")
-//       .data(layers)
-//       .join("g")
-//       .attr("class", "layer")
-//       .attr("fill", (layer) => (layer.key === "income" ? "green" : "#34eb37"))
-//       .selectAll("rect")
-//       .data((layer) => layer)
-//       .join("rect")
-//       .attr("class", "data-bar")
-//       .attr("x", (sequence) => xScale(parseMonth(sequence.data.date)))
-//       .attr("width", xScale.bandwidth())
-//       .attr("y", (sequence) => yScale(sequence[1]))
-//       .attr("height", (sequence) => yScale(sequence[0]) - yScale(sequence[1]));
-
-//     const xAxis = axisBottom(xScale).tickFormat((month) => formatMonth(month));
-
-//     svg
-//       .select(".x-axis")
-//       .attr("transform", `translate(0, ${height})`)
-//       .call(xAxis)
-//       .selectAll("text")
-//       .style("text-anchor", "end")
-//       .attr("dx", "-.8em")
-//       .attr("dy", ".15em")
-//       .attr("transform", "rotate(-65)");
-
-//     // Remove the y-axis
-//     yAxisSvg.select(".y-axis").remove();
-//   }, [data]);
-
-//   return (
-//     <div ref={wrapperRef} className="svg-wrap">
-//       <svg ref={yAxisRef} className="y-axis-svg" width="1">
-//         <g className="y-axis" />
-//       </svg>
-//       <svg className="energy-svg" ref={svgRef}>
-//         <g className="x-axis" />
-//       </svg>
-//     </div>
-//   );
-// }
-
-// export default StackedBarChart;
-
-
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
 const data = [
-  { category: 'A', values: [10, 20, 30] },
-  { category: 'B', values: [15, 25, 35] },
-  { category: 'C', values: [20, 30, 40] },
+  { name: "August", value1: 30, value2: 25 },
+  { name: "September", value1: 20, value2: 30 },
+  { name: "October", value1: 30, value2: 35 },
+  { name: "November", value1: 12, value2: 32 },
+  { name: "December", value1: 40, value2: 25 },
+  { name: "january", value1: 30, value2: 45 },
 ];
 
-const StackedBarChart = () => {
-  const svgRef = useRef();
+const StackedChart = () => {
+  const ref = useRef(null);
+  const margin = { top: 20, right: 0, bottom: 30, left: 20 };
+  const width = 560;
+  const height = 250;
+  const colors = ["#34eb37", "green"];
 
   useEffect(() => {
-    const margin = { top: 20, right: 30, bottom: 30, left: 40 },
-      width = 600 - margin.left - margin.right,
-      height = 400 - margin.top - margin.bottom;
+    const svg = d3.select(ref.current);
 
-    const svg = d3
-      .select(svgRef.current)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    const x = d3
+    // Create the scales.
+    const xScale = d3
       .scaleBand()
-      .domain(data.map((d) => d.category))
-      .range([0, width])
-      .padding(0.1);
+      .domain(data.map((d) => d.name))
+      .range([margin.left, width])
+      .paddingInner(0.85);
 
-    const y = d3
+    const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d3.sum(d.values))])
-      .range([height, 0]);
+      .domain([0, d3.max(data, (d) => d.value1 + d.value2)])
+      .range([height, margin.top]);
 
-    const color = d3.scaleOrdinal().range(['#98abc5', '#8a89a6', '#7b6888']);
+    // Create the stacked bars.
+    const g = svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${-30})`);
 
-    svg
-      .selectAll('g')
-      .data(d3.stack().keys([0, 1, 2])(data))
+    const stack = d3.stack().keys(["value1", "value2"]);
+
+    const stacks = stack(data);
+
+    g.selectAll(".bar")
+      .data(stacks)
       .enter()
-      .append('g')
-      .attr('fill', (d) => color(d.key))
-      .selectAll('rect')
+      .append("g")
+      .attr("class", "bar")
+      .attr("fill", (d, i) => colors[i])
+      .selectAll("rect")
       .data((d) => d)
       .enter()
-      .append('rect')
-      .attr('x', (d) => x(d.data.category))
-      .attr('y', (d) => y(d[1]))
-      .attr('height', (d) => y(d[0]) - y(d[1]))
-      .attr('width', x.bandwidth());
+      .append("rect")
+      .attr("x", (d) => xScale(d.data.name))
+      .attr("y", (d) => yScale(d[1]))
+      .attr("width", xScale.bandwidth())
+      .attr("height", (d) => yScale(d[0]) - yScale(d[1]))
+      .attr('rx', 5 )
+      .attr('ry', 0);
 
+    // Add labels at the bottom of each bar
+    g.selectAll(".bar")
+      .data(stacks)
+      .enter()
+      .append("g")
+      .attr("class", "label")
+      .selectAll("text")
+      .data((d) => d)
+      .enter()
+      .append("text")
+      .attr("x", (d) => xScale(d.data.name) + xScale.bandwidth() / 2)
+      .attr("y", (d) => yScale(d[1]) + 15) // Adjust the vertical position of the labels
+      .attr("text-anchor", "middle")
+      .text((d) => d.data.name);
+
+    // Add the axes.
     svg
-      .append('g')
-      .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(x));
+      .append("g")
+      .attr("class", "x axis")
+      .attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
+      .call(d3.axisBottom(xScale));
 
-    svg.append('g').call(d3.axisLeft(y));
-  }, []);
+    svg.selectAll(".x.axis .tick line").remove();
+    svg.selectAll(".domain").remove();
+    svg.append('g').attr('transform', `translate(${margin.left},0)`);
 
-  return <svg ref={svgRef}></svg>;
+  }, [data]);
+
+  return <svg ref={ref} width={width} height={height} />;
 };
 
-export default StackedBarChart;
+export default StackedChart;
