@@ -101,9 +101,9 @@ function App() {
                 <span>Checking account</span>
                 <Box sx={{ width: "18rem" ,}}>
                   <FormControl sx={{ m: 1, minWidth: 120 ,  }} size="small">
-                    <InputLabel
+                  <InputLabel
                       id="demo-select-small-label"
-                      sx={{ backgroundColor: "#FFFF", }}
+                      sx={{ backgroundColor: "#FFFF" }}
                     >
                       Manage
                     </InputLabel>
@@ -128,7 +128,7 @@ function App() {
                       id="demo-select-small-label"
                       sx={{ backgroundColor: "#FFFF" }}
                     >
-                      Month
+                      Month 
                     </InputLabel>
                     <Select
                       labelId="demo-select-small-label"

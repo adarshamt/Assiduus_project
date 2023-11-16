@@ -20,7 +20,6 @@ const StackedChart = () => {
   useEffect(() => {
     const svg = d3.select(ref.current);
 
-    // Create the scales.
     const xScale = d3
       .scaleBand()
       .domain(data.map((d) => d.name))
@@ -32,7 +31,6 @@ const StackedChart = () => {
       .domain([0, d3.max(data, (d) => d.value1 + d.value2)])
       .range([height, margin.top]);
 
-    // Create the stacked bars.
     const g = svg
       .append("g")
       .attr("transform", `translate(${margin.left}, ${-30})`);
@@ -55,10 +53,9 @@ const StackedChart = () => {
       .attr("y", (d) => yScale(d[1]))
       .attr("width", xScale.bandwidth())
       .attr("height", (d) => yScale(d[0]) - yScale(d[1]))
-      .attr('rx', 5 )
-      .attr('ry', 0);
+      .attr('rx', 2)  // Adjust the border radius for the top-left and top-right corners
+      .attr('ry', 1); // Adjust the border radius for the bottom-left and bottom-right corners
 
-    // Add labels at the bottom of each bar
     g.selectAll(".bar")
       .data(stacks)
       .enter()
@@ -69,11 +66,10 @@ const StackedChart = () => {
       .enter()
       .append("text")
       .attr("x", (d) => xScale(d.data.name) + xScale.bandwidth() / 2)
-      .attr("y", (d) => yScale(d[1]) + 15) // Adjust the vertical position of the labels
+      .attr("y", (d) => yScale(d[1]) + 15)
       .attr("text-anchor", "middle")
       .text((d) => d.data.name);
 
-    // Add the axes.
     svg
       .append("g")
       .attr("class", "x axis")
