@@ -1,4 +1,5 @@
 import "./App.css";
+import "./Componets/Sidebar.css"
 import Navbar from "./Componets/Navbar.jsx";
 import Sidebar from "./Componets/Sidebar.jsx";
 
@@ -17,7 +18,7 @@ import Modal from "@mui/material/Modal";
 import BarChart from "./Componets/InvoiceChart.jsx";
 // import CashBarChart from "./Componets/CashFlowChart.jsx";
 import AccountTable from "./Componets/AccountTable.jsx";
-import StackedBarChart from "./Componets/CashFlowChart.jsx";
+
 import StackedChart from "./Componets/CashFlowChart.jsx";
 
 
@@ -40,14 +41,7 @@ function App() {
   //   { date: "2023-01-02", income: 1200, outcome: 600 },
   //   // Add more data points as needed
   // ];
-  const stackdata = [
-    { date: "August", income: 1000, outcome: 500 },
-    { date: "September", income: 1200, outcome: 600 },
-    { date: "October", income: 800, outcome: 400 },
-    { date: "November", income: 1500, outcome: 700 },
-    { date: "December", income: 900, outcome: 300 },
-    { date: "January", income: 1}
-  ]
+ 
   
 
 

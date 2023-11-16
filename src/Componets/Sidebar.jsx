@@ -11,13 +11,13 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import PersonIcon from "@mui/icons-material/Person";
 import ContactsIcon from "@mui/icons-material/Contacts";
 
-import "./sidebar.css";
 import { Typography } from "@mui/material";
+
 
 export default function FolderList() {
   return (
     <List sx={{ width: "100%", maxWidth: 360 }}>
-      <div className="logo_conatiner">
+      <div style={{ padding: "20px"}} className="logo_conatiner">
         <img
           style={{ width: "8rem" }}
           src="https://res.cloudinary.com/dcy1nhstg/image/upload/v1699082932/Assiduus_TM_Logo--1-_nt79sc.png"
@@ -25,7 +25,7 @@ export default function FolderList() {
         />
       </div>
       <div className="sidebar_list"></div>
-      <div className="sidbar_list_container">
+      <div style={{display:'flex',flexDirection:"column",rowGap:'5px'}} className="sidbar_list_container">
         <ListItem className="ListItem">
           <DashboardIcon />
 
